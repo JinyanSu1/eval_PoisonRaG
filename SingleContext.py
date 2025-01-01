@@ -73,13 +73,14 @@ def main():
 
         for exp in experiments:
             retrieval_texts = exp['context']
-            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_id=1, prompt_version=args.prompt_version)
+            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_type=args.prompt_type)
             print(input_prompt)
             output = llm.query(input_prompt)
             print(output)
             sample_results[exp['name']] = output
         all_results.append(sample_results)
         idx+=1
+
 
 
     output_file_path = os.path.join(args.output_dir, f"SingleContext_{args.dataset_name}_{args.model_name}_{args.prompt_type}.json")

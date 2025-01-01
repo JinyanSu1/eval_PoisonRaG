@@ -73,7 +73,7 @@ def main():
             # For each experiment, prepare the prompt and query the LLM
             
             retrieval_texts = '\n'.join(input_context)
-            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_version=args.prompt_type)
+            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_type=args.prompt_type)
             print(input_prompt)
             output = llm.query(input_prompt)
             print(output)
@@ -91,7 +91,7 @@ def main():
             random.seed(args.seed)
             random.shuffle(input_context)
             retrieval_texts = '\n'.join(input_context)
-            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_version=args.type)
+            input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_type=args.prompt_type)
             print(input_prompt)
             output = llm.query(input_prompt)
             print(output)
@@ -108,13 +108,14 @@ def main():
                 random.seed(args.seed)
                 random.shuffle(input_context)
                 retrieval_texts = '\n'.join(input_context)
-                input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_version=args.prompt_type)
+                input_prompt = wrap_prompt(question, retrieval_texts, choices, prompt_type=args.prompt_type)
                 print(input_prompt)
                 output = llm.query(input_prompt)
                 print(output)
                 sample_results[f'Counteract{num_adv}:{num_right}'] = output
         all_results.append(sample_results)
         idx += 1
+
 
         
                 

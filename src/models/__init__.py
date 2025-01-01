@@ -1,5 +1,3 @@
-from .PaLM2 import PaLM2
-from .Vicuna import Vicuna
 from .GPT import GPT
 from .Llama import Llama
 from .Claude import Claude

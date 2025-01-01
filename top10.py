@@ -20,9 +20,10 @@ def parse_args():
     parser.add_argument('--model_name', type=str, default='gpt3.5')
     parser.add_argument('--gpu_id', type=int, default=0)
     parser.add_argument('--seed', type=int, default=0, help='Random seed')
-    parser.add_argument("--prompt_type", type=int, default=4)
+    parser.add_argument("--prompt_type", type=str, default='skeptical')
     parser.add_argument('--dataset_name', type=str, default='nq')
     parser.add_argument('--top_k', type=int, default=10, help='The number of passages to retrieve')
+    parser.add_argument('--datadir', type=str, default='results/pre-processed')
     parser.add_argument('--retriever', type=str, default='contriever')
     parser.add_argument('--output_dir', type=str, default='results/LLM_output_results')
 
@@ -43,7 +44,7 @@ def main():
         # Load the LLM
     llm = create_model(args.model_config_path)
 
-    json_file = os.path.join(args.data_dir, f"{args.retriever}_{args.dataset_name}.json")
+    json_file = os.path.join(args.datadir, f"{args.retriever}_{args.dataset_name}.json")
 
     print(f'Processing file: {json_file}')
     with open(json_file, 'r') as f:
@@ -52,7 +53,7 @@ def main():
     with open(top_k_file, 'r') as f:
         top_k_data = json.load(f)
     
-    idx = 0
+
     all_results = []
     for sample_id, sample in tqdm(data.items(), desc='Processing samples'):
         question = sample['question']
@@ -75,6 +76,7 @@ def main():
         print(output)
         sample_results['output'] = output
         all_results.append(sample_results)
+
 
 
         
